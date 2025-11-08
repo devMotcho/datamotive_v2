@@ -1,0 +1,86 @@
+{% extends 'main.html' %}
+{% load product_extras %}
+{% block title %}
+- Product Table
+{% endblock title %}
+
+{% block content %}
+
+{% include 'product/products/create-product-modal.html' %}
+
+<main class="content p-2">
+    <div class="container-xl">
+        <!-- Title + Action -->
+        <div class="row">
+            <div class="col">
+                <h4 class="title">
+                    Products Table
+                </h4>
+            </div>
+            <div class="col">
+                <div class="action text-end">
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#createModal">
+                        <i class="fa-solid fa-folder-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- End Title + Action -->
+        <hr>
+        <!-- Card with Table -->
+        <div class="card border-0">
+            <div class="d-flex px-4 mt-4">
+                <table class="table table-striped table-bordered border-dark">
+                    <thead>
+                        <tr class="table-dark text-white text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">{{ product|verbose_name:"name" }}</th>
+                            <th scope="col">{{ product|verbose_name:"category" }}</th>
+                            <th scope="col">{{ product|verbose_name:"active" }}</th>
+                            <th scope="col">{{ product|verbose_name:"price" }}</th>
+                            <th scope="col">{{ product|verbose_name:"discount" }}</th>
+                            <th scope="col">Final Price</th>
+                            <th scope="col">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in page_obj %}
+                        <tr class="text-center">
+                            <th scope="row">{{ obj.id }}</th>
+                            <th scope="row">{{ obj.name }}</th>
+                            <th scope="row">{{ obj.category }}</th>
+                            <th scope="row">
+                            {% if obj.active %}
+                            <span class="badge rounded-pill bg-success">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </span>
+                            {% else %}
+                            <span class="badge rounded-pill bg-danger">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </span>
+                            {% endif %}
+                            </th>
+                            <th scope="row">{{ obj.price }} €</th>
+                            <th scope="row">{{ obj.discount }} %</th>
+                            <th scope="row">{{ obj.final_price }} €</th>
+                            <td>
+                                <!-- Detail -->
+                                <a class="btn btn-sm btn-outline-success" href="{% url 'product:detail' obj.id %}">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <!-- Delete -->
+                                <a class="btn btn-sm btn-outline-danger" href="{% url 'product:delete' obj.id %}">
+                                    <i class="fa-solid fa-x"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End Card with Table -->
+        {% include 'pagination.html' %}
+    </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% if request.user.is_authenticated %}
+<footer class="navbar bottom navbar-dark bg-dark text-white">
+    <div class="container-fluid">
+        <div class="col-4 text-center">
+            <small class=" copyright mb-0">
+                    &copy; Copyright 2024 Motcho
+            </small>
+        </div>
+        <div class="col-4 text-center">
+            <!-- Search with q -->
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <button class="btn btn-outline-warning" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+        <div class="socials col-4 text-center">
+            <ul class="mb-0 list-inline">
+                <li class="list-inline-item">
+                    <a href="#" class="btn btn-outline-info btn-sm">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="btn btn-outline-danger btn-sm">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="btn btn-outline-secondary btn-sm">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
+{% endif %}

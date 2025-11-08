@@ -1,0 +1,18 @@
+{% load static %}
+{% block scripts %}
+<script>var stocks = JSON.parse('{{ stocks|escapejs }}');</script>
+<script src="{% static 'js/barChartStock.js' %}" defer></script>
+{% endblock scripts %}
+
+
+<div class="card my-4">
+    <div class="card-body">
+        <div class="row p-2">
+            <div class="chart-container" style="height: 300px;">
+                <div class="container w-100 g-0" style="height: 100%;">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
