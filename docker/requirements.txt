@@ -1,4 +1,4 @@
-appdirs~=1.4.4
+appdirs
 asgiref~=3.8.1
 bootstrap4~=0.1.0
 crispy-bootstrap4~=2024.1
@@ -12,7 +12,7 @@ gunicorn~=23.0.0
 packaging~=24.1
 pillow~=12.0.0
 pint>=0.24
-
+psycopg[binary]~=3.0
 python-dotenv~=1.0.1
 sqlparse~=0.5.0
 typing_extensions~=4.12.2

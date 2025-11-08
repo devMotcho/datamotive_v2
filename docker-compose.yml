@@ -7,8 +7,22 @@ services:
     restart: unless-stopped
     env_file:
       - ./.env
+      - ./.env.db
     ports:
       - 5678:5678
       - 8000:8000
     volumes:
       - ./src/:/home/app/web/
+  db:
+    container_name: db
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - ./.env.db
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+volumes:
+  pgdata:

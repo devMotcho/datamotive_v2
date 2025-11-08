@@ -107,24 +107,24 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    "ENGINE": os.getenv("POSTGRES_ENGINE", "django.db.backends.postgresql"),
+    "NAME": os.getenv("POSTGRES_DB", "database"),
+    "USER": os.getenv("POSTGRES_USER", "user"),
+    "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
+    "HOST": os.getenv("POSTGRES_HOST", "db"),
+    "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
-
-if not DEBUG:
-    DATABASES = {
-        "default": {
-        "ENGINE": os.getenv("POSTGRES_ENGINE", "django.db.backends.postgresql"),
-        "NAME": os.getenv("POSTGRES_DB", "database"),
-        "USER": os.getenv("POSTGRES_USER", "user"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
-        "HOST": os.getenv("POSTGRES_HOST", "db_data"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
-        }
-    }
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
