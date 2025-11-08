@@ -5,8 +5,6 @@ from django.core.validators import (
     RegexValidator, MaxLengthValidator,
     DecimalValidator, validate_image_file_extension
 )
-
-from .validators import validate_unit_of_measure
 from src.utils import generate_code
 from src.validators import validate_names
 
@@ -15,7 +13,6 @@ class Measurement(models.Model):
 
     measure = models.CharField(
         max_length=100, unique=True, default='Unit',
-        validators=[validate_unit_of_measure], 
         verbose_name='Measure'
     )
 

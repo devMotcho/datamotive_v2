@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = int(os.getenv("DEBUG", 0))
 SECRET_KEY = str(os.getenv("SECRET_KEY", "unsafe-dev-secret"))
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
-
+IS_PRODUCTION = False
 
 # Django Default Application definition
 INSTALLED_APPS = [
@@ -110,6 +110,7 @@ MESSAGE_TAGS = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 

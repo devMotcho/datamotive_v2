@@ -2,7 +2,6 @@
 
 import django.core.validators
 import django.db.models.deletion
-import product.validators
 import src.validators
 from django.db import migrations, models
 
@@ -27,7 +26,7 @@ class Migration(migrations.Migration):
             name='Measurement',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('measure', models.CharField(default='Unit', max_length=100, unique=True, validators=[product.validators.validate_unit_of_measure], verbose_name='Measure')),
+                ('measure', models.CharField(default='Unit', max_length=100, unique=True, verbose_name='Measure')),
             ],
         ),
         migrations.CreateModel(
