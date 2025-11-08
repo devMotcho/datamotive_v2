@@ -5,14 +5,15 @@
 
 ---
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Config](#conf)
-- [Docker](#docker)
-- [License](#license)
+- [DataMotive](#datamotive)
+    - [Table of Contents](#table-of-contents)
+    - [Introduction](#introduction)
+    - [Features](#features)
+    - [Tech Stack](#tech-stack)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [S3 Bucket for Images](#s3-bucket-for-images)
+    - [License](#license)
 
 ### Introduction
 
@@ -37,8 +38,7 @@ DataMotive is meant to be a Management System which provides a simple way to tra
 - Whenever a new Product is Created a Django signal is sent to create a new instance of that Product in Stock with quantity 0;
 - Whenever a new User is Created a Django signal is sent to create a new instance of Profile with that User;
 - Need to be Authenticated in order to View any content or data, if not you will be redirected to login page;
-- Docker-compose will make migrations, migrate and create a super user;
-- Use `pint` library to check the measurement;
+- Docker-compose will make migrations, migrate and create a super user.
 
 ### Tech Stack
 
@@ -69,80 +69,26 @@ git clone https://github.com/devMotcho/DataMotive.git
 cd DataMotive
 ```
 
-2. **Create a .env in the root of the project and edit it to set your environment variables**:
-
-```.env
-SECRET_KEY=your-secret-key
-DEBUG=True
-DATABASE_NAME=datamotive
-DATABASE_USER=your-db-user
-DATABASE_PASSWORD=your-db-password
-DATABASE_HOST=db
-DATABASE_PORT=5432
-```
+2. Create a .env and .env.db in the root of the project using the .env and .env.db as example with your own secure values.
 
 3. **Build and run the Docker containers**:
 
 ```bash
-docker-compose up --build
+docker compose up --build -d
 ```
 
-4. **Apply the database migrations**:
+4. Check services are running as expected:
 
-```bash
-docker-compose exec web python manage.py migrate
+``` bash
+docker compose logs
 ```
-
-5. **Create a superuser**:
-
-You have a default super user created:
-
-- username : admin
-- password : adminpassword
-
-```bash
-docker-compose exec web python manage.py createsuperuser
-```
-
-### Configuration
-
----
-
-Set up environment variables in the .env file as mentioned above:
-
-```
-SECRET_KEY=your-secret-key
-DEBUG=True
-DATABASE_NAME=datamotive
-DATABASE_USER=your-db-user
-DATABASE_PASSWORD=your-db-password
-DATABASE_HOST=db
-DATABASE_PORT=5432
-```
-
-### Docker
-
----
-
-To start the development server:
-
-```bash
-docker-compose up
-```
-
-To stop the development server:
-
-```bash
-docker-compose down
-```
-
-You can access the development server at **localhost:8000**
 
 
 ### S3 Bucket for Images
+
 In production the images are being store on a s3 bucket, add this with the actual values of your s3 bucket to your .env file:
 
-```
+``` .env
 AWS_ACCESS_KEY_ID=your_aws_access_key_id
 AWS_SECRET_ACCESS_KEY=your_aws_scret_access_key
 AWS_STORAGE_BUCKET_NAME=your_aws_storage_bucket_name
