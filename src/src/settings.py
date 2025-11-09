@@ -1,13 +1,16 @@
+import os
 from pathlib import Path
 from django.contrib import messages
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEBUG = int(os.getenv("DEBUG", 0))
-SECRET_KEY = str(os.getenv("SECRET_KEY", "unsafe-dev-secret"))
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
-IS_PRODUCTION = False
+
+IS_PRODUCTION = int(os.getenv("IS_PRODUCTION", 0))
+
+if IS_PRODUCTION:
+    from .production import *
+else:
+    from .development import *
 
 # Django Default Application definition
 INSTALLED_APPS = [
@@ -107,25 +110,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
-DATABASES = {
-    "default": {
-    "ENGINE": os.getenv("POSTGRES_ENGINE", "django.db.backends.postgresql"),
-    "NAME": os.getenv("POSTGRES_DB", "database"),
-    "USER": os.getenv("POSTGRES_USER", "user"),
-    "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
-    "HOST": os.getenv("POSTGRES_HOST", "db"),
-    "PORT": os.getenv("POSTGRES_PORT", "5432"),
-    }
-}
-
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
@@ -137,15 +121,5 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-if DEBUG:
-    AWS_QUERYSTRING_AUTH = False
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-    # AWS IAM and Bucket
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-
 
 paginator_num = 10
